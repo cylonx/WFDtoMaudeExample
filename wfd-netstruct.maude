@@ -1,0 +1,50 @@
+fmod wfd-net is 
+    including net-types .
+
+    ops i o p1 p2 p3 p4 p5 p6 : -> Places  . 
+    ops cch ple pmf ra rja rmf scd srn : -> Transitions .
+    ops chr f le c cd rn : -> Data .
+    ops okCH okData : -> Preds .
+
+    --- operations for transitions
+    eq read(cch) = c .
+    eq write(cch) = chr .
+    eq delete(cch) = empty .
+
+    eq read(ple) = c .
+    eq write(ple) = le .
+    eq delete(ple) = empty .
+
+    eq read(pmf) = chr,c .
+    eq write(pmf) = f .
+    eq delete(pmf) = empty .
+
+    eq read(ra) = c .
+    eq write(ra) = empty .
+    eq delete(ra) = empty .
+
+    eq read(rja) = chr,f .
+    eq write(rja) = rn .
+    eq delete(rja) = f,chr .
+
+    eq read(rmf) = f .
+    eq write(rmf) = f .
+    eq delete(rmf) = empty .
+
+    eq read(scd) = chr,f .
+    eq write(scd) = cd .
+    eq delete(scd) = f,chr .
+
+    eq read(srn) = chr .
+    eq write(srn) = rn .
+    eq delete(srn) = empty .
+
+    
+    --- predicates data
+    eq vars(okCH) = chr .
+    eq vars(okData) = chr,f .
+
+    --- initial configuration
+    eq initConfig = < i  , (c) , ({ okCH : false },{ okData : false })  , empty > .
+
+endfm

@@ -1,0 +1,51 @@
+mod wfd-check is 
+    including wfd-preds . 
+    including MODEL-CHECKER . 
+    including LTL-SIMPLIFIER . 
+
+    op enabledWithData : Transitions Data -> Prop .
+    ops notmissing notredundant notlost  access delwrite : Data -> Prop .
+
+    op fireable : Transitions -> Prop .
+    ops consistentData  end : -> Prop .
+
+    var t : Transitions .
+    var x : Data .
+    var s : Set{Data} .
+
+    eq end = final(empty) .
+
+    eq enabledWithData(t,s) = enabledTrans(t) /\ predTrans(t) /\ availableData (s) .
+
+    --- access
+    eq access (chr) =  enabledTrans(pmf) \/ enabledTrans(rja) \/ enabledTrans(scd) \/ enabledTrans(srn)  .
+    eq access (f) =  enabledTrans(rja) \/ enabledTrans(rmf) \/ enabledTrans(scd)  .
+    eq access (c) =  enabledTrans(cch) \/ enabledTrans(ple) \/ enabledTrans(pmf) \/ enabledTrans(ra)  .
+
+
+    --- fireable 
+    eq fireable (cch) = enabledWithData(cch ,c) .
+    eq fireable (ple) = enabledWithData(ple ,c) .
+    eq fireable (pmf) = enabledWithData(pmf ,(chr,c)) .
+    eq fireable (ra) = enabledWithData(ra ,c) .
+    eq fireable (rja) = enabledWithData(rja ,(chr,f)) .
+    eq fireable (rmf) = enabledWithData(rmf ,f) .
+    eq fireable (scd) = enabledWithData(scd ,(chr,f)) .
+    eq fireable (srn) = enabledWithData(srn ,chr) .
+
+    eq delwrite(x) = written(x) \/ deleted(x) .
+
+
+    --- redundant : EF (wrriten (d) /\ O (~ read(x) U ( end /\ ~ read (x))) .
+    eq notredundant(x) = [] ~ ( written (x)  /\ O (~ read(x) U ( end /\ ~ read (x)) )) .
+
+    --- missing data: EF ( ~ availableData(x) /\ access(x) )
+    eq notmissing(x) = [] ~( ~ availableData(x) /\ access(x) ) .
+
+    --- lost data : EF ( written(x) /\ ~end /\ O (~ read(x) U (delwrite(x) /\ ~ read(x))) ) 
+    eq notlost(x) = [] ~ ( (written(x) /\ ~ end) /\ O (~ read(x) U (delwrite(x) /\ ~ read(x))) ) .
+
+    eq consistentData = [] ~ ( concurrentlyFireable(cch,rja) \/ concurrentlyFireable(cch,pmf) \/ concurrentlyFireable(cch,scd) \/ 
+                               concurrentlyFireable(cch,srn) \/ concurrentlyFireable(rmf,scd) \/ concurrentlyFireable(pmf,rja) \/ 
+                               concurrentlyFireable(pmf,rmf) \/ concurrentlyFireable(rja,rmf) \/ concurrentlyFireable(rja,srn) \/ concurrentlyFireable(pmf,scd) ) .
+endm

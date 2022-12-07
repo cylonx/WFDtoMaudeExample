@@ -1,0 +1,103 @@
+fmod DATA is
+  sort Data .
+endfm
+
+fmod DATAOP is
+  protecting DATA .
+  sort DataOp .
+  ops w r dl :  Data -> DataOp [ctor] .
+endfm
+
+fmod PREDS is 
+ sort Preds .
+endfm
+
+fmod PREDVALUE is 
+  protecting PREDS .
+  protecting BOOL .
+  sort PredValue .
+  op {_:_} : Preds Bool -> PredValue [ctor] .
+endfm 
+
+view Data from TRIV to DATA is
+    sort Elt to Data .
+endv
+
+view DataOp from TRIV to DATAOP is
+    sort Elt to DataOp .
+endv
+
+view Preds from TRIV to PREDS is
+    sort Elt to Preds .
+endv
+
+view PredValue from TRIV to PREDVALUE is
+ sort Elt to PredValue .
+endv
+
+
+fmod net-types is 
+  protecting PREDS .
+  protecting PREDVALUE .
+  protecting DATA .
+  protecting SET{Data} .
+  protecting SET{Preds} .
+  protecting SET{PredValue} .
+  protecting SET{DataOp} . 
+  protecting BOOL .
+  
+  sorts Transitions Places Marking Config .
+  subsort Places < Marking . 
+
+  op null  : -> Marking . 
+  op __ : Marking Marking -> Marking [ctor assoc comm id: null] . 
+
+  op changeValues : Set{PredValue} Set{Preds} ->  Set{PredValue} .
+  op vars : Preds -> Set{Data} .
+  op defined : Preds Set{Data} -> Bool .
+  op definedPreds : Set{Preds} Set{Data} -> Bool .
+  
+  ops readOps writeOps deleteOps : Set{Data}-> Set{DataOp} .
+  op dops : Transitions -> Set{DataOp} .
+  ops read write delete inputData outputData  : Transitions -> Set{Data} .
+  ops inputPlaces outputPlaces : Transitions -> Places .
+
+  var Pr : Set{PredValue} .
+  
+  var b : Bool .
+  var W : Preds .
+  var pn : Preds .
+  var pset : Set{Preds} .
+  var DS : Set{Data} .
+  var E : Data .
+
+  eq defined(pn,DS) = intersection (vars(pn) , DS) == vars(pn) . 
+  eq definedPreds(empty,DS) = false .
+  eq definedPreds(pn,DS) = defined(pn,DS) .
+  eq definedPreds ( (pset , pn) , DS) = definedPreds(pset,DS) and defined(pn,DS) .
+
+  eq changeValues(empty , pset) = empty .
+  eq changeValues (Pr , empty) = Pr .
+  eq changeValues((Pr , { W : b}) , W) = Pr , { W : not b } .
+  eq changeValues ((Pr , { W : b }), (pset , W) ) = changeValues(Pr,pset) , {W : not b} .
+  eq changeValues (Pr , pset)  = Pr [owise] .
+
+  eq readOps(empty) = empty .
+  eq readOps(E) = r(E) .
+  eq readOps ((DS , E)) = readOps(DS) , r(E) .
+
+  eq writeOps(empty) = empty .
+  eq writeOps(E) = w(E) .
+  eq writeOps ((DS , E)) = writeOps(DS) , w(E) .
+
+  eq deleteOps(empty) = empty .
+  eq deleteOps(E) = dl(E) .
+  eq deleteOps ((DS , E)) = deleteOps(DS) , dl(E) .
+
+  var t : Transitions .
+  eq dops(t) = readOps(read(t)), writeOps(write(t)) , deleteOps(delete(t)) .
+
+  op initConfig : -> Config .
+  op <_,_,_,_> : Marking Set{Data} Set{PredValue} Set{DataOp} -> Config [ctor] .
+
+endfm

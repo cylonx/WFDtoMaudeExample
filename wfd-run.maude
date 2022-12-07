@@ -1,0 +1,54 @@
+load wfd-nettypes.maude .
+load wfd-netstruct.maude .
+load wfd.maude .
+load model-checker .
+load wfd-pred.maude .
+load wfd-check.maude .
+
+set show commands off .
+
+set show stats off .
+red in STRING : "Check if transitions are dead" .
+set show stats on .
+
+red in wfd-check : modelCheck(initConfig, []~ fireable(cch)) . 
+red in wfd-check : modelCheck(initConfig, []~ fireable(ple)) . 
+red in wfd-check : modelCheck(initConfig, []~ fireable(pmf)) . 
+red in wfd-check : modelCheck(initConfig, []~ fireable(ra)) . 
+red in wfd-check : modelCheck(initConfig, []~ fireable(rja)) . 
+red in wfd-check : modelCheck(initConfig, []~ fireable(rmf)) . 
+red in wfd-check : modelCheck(initConfig, []~ fireable(scd)) . 
+red in wfd-check : modelCheck(initConfig, []~ fireable(srn)) . 
+set show stats off .
+red in STRING : "Check if data elements are not redundant" .
+set show stats on .
+red in wfd-check : modelCheck(initConfig, notredundant(chr)) . 
+red in wfd-check : modelCheck(initConfig, notredundant(f)) . 
+red in wfd-check : modelCheck(initConfig, notredundant(le)) . 
+red in wfd-check : modelCheck(initConfig, notredundant(c)) . 
+red in wfd-check : modelCheck(initConfig, notredundant(cd)) . 
+red in wfd-check : modelCheck(initConfig, notredundant(rn)) . 
+
+set show stats off .
+red in STRING : "Check if data elements are not lost" .
+set show stats on .
+
+red in wfd-check : modelCheck(initConfig, notlost(chr)) . 
+red in wfd-check : modelCheck(initConfig, notlost(f)) . 
+red in wfd-check : modelCheck(initConfig, notlost(le)) . 
+red in wfd-check : modelCheck(initConfig, notlost(c)) . 
+red in wfd-check : modelCheck(initConfig, notlost(cd)) . 
+red in wfd-check : modelCheck(initConfig, notlost(rn)) . 
+
+set show stats off .
+red in STRING : "Check if data elements are not lost" .
+set show stats on .
+
+red in wfd-check : modelCheck(initConfig, notmissing(chr)) . 
+red in wfd-check : modelCheck(initConfig, notmissing(f)) . 
+red in wfd-check : modelCheck(initConfig, notmissing(le)) . 
+red in wfd-check : modelCheck(initConfig, notmissing(c)) . 
+red in wfd-check : modelCheck(initConfig, notmissing(cd)) . 
+red in wfd-check : modelCheck(initConfig, notmissing(rn)) . 
+
+q
