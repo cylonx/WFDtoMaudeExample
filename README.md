@@ -6,7 +6,7 @@ The structure of the repo is as follows:
   * [wfd-nettypes.maude](/example/wfd-nettypes.maude) : the definition of data types and operations used for a general WFD-net
   * [wfd-netstruct.maude](/example/wfd-netstruct.maude) : the structure of the WFD-net in our example
   * [wfd.maude](/example/wfd.maude) : contains the rewrite rules that describe the semantics of the WFD-net
-  * [wfd-preds.maude](/example/wfd-preds.maude) : contains the atomic propositions () used for verification 
+  * [wfd-preds.maude](/example/wfd-preds.maude) : contains the state predicates used for verification 
   * [wdf-check.maude](/example/wdf-check.maude) : contains the formulas describibg data-flow erorrs 
   * [wfd-run.maude](/example/wdf-run.maude) : contains verification commands for all the data-flow errors for the example
 
