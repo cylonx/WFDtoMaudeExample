@@ -19,6 +19,8 @@ fmod PREDVALUE is
   op {_:_} : Preds Bool -> PredValue [ctor] .
 endfm 
 
+--- for each of the modules NAME  in DATA, PREDS, ...we define a view Name  from TRIV to NAME...this will allow us to instantiate the parametrized predifined modul SET with this views an to work with sets of Preds, 
+--- sets of 
 view Data from TRIV to DATA is
     sort Elt to Data .
 endv
@@ -97,7 +99,10 @@ fmod net-types is
   var t : Transitions .
   eq dops(t) = readOps(read(t)), writeOps(write(t)) , deleteOps(delete(t)) .
 
+  --- outputData(DS,t) = (DS,used(t)) ...etc ? sau nu ? 
+
   op initConfig : -> Config .
   op <_,_,_,_> : Marking Set{Data} Set{PredValue} Set{DataOp} -> Config [ctor] .
+
 
 endfm

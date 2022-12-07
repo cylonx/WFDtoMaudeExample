@@ -1,7 +1,7 @@
 mod wfd is 
     including net-types .  
     including wfd-net .  
-
+   
     var M  : Marking .
     var p : Places .
     var DS : Set{Data} .
@@ -10,16 +10,16 @@ mod wfd is
     var b : Bool .
 
     crl [cch-1] : < M p1 , (DS , c) , PS , DO > => < M p3 , (DS , chr,c) , changeValues(PS, okCH) , dops(cch) >  if definedPreds(okCH, (DS , chr,c)).
-    crl [cch-2] : < M p1 , (DS , c) , PS , DO > => < M p3 , (DS , chr,c) , changeValues(PS, okData) , dops(cch) >  if definedPreds(okData, (DS , chr,c)).
-    crl [cch-3] : < M p1 , (DS , c) , PS , DO > => < M p3 , (DS , chr,c) , changeValues(PS, (okCH,okData)) , dops(cch) >  if definedPreds((okCH,okData), (DS , chr,c)).
-    rl [cch-4] : < M p1 , (DS , c) , PS , DO > => < M p3 , (DS , chr,c) , PS , dops(cch) > .
-    rl [ple-1] : < M p2 , (DS , c) , PS , DO > => < M p4 , (DS , le,c) , PS , dops(ple) > .
-    crl [pmf-1] : < M p3 , (DS , chr,c) , (PS , { okCH : true }) , DO > => < M p5 , (DS , chr,f,c) , changeValues((PS , { okCH : true }), okData) , dops(pmf) >  if definedPreds(okData, (DS , chr,f,c)).
-    rl [pmf-2] : < M p3 , (DS , chr,c) , (PS , { okCH : true }) , DO > => < M p5 , (DS , chr,f,c) , (PS , { okCH : true }) , dops(pmf) > .
-    rl [ra-1] : < M i , (DS , c) , PS , DO > => < M p1 p2 , (DS , c) , PS , dops(ra) > .
-    rl [rja-1] : < M p4 p6 , (DS , chr,f) , (PS , { okData : false }) , DO > => < M o , (DS , rn) , (PS , { okData : false }) , dops(rja) > .
-    crl [rmf-1] : < M p5 , (DS , f) , PS , DO > => < M p6 , (DS , f) , changeValues(PS, okData) , dops(rmf) >  if definedPreds(okData, (DS , f)).
-    rl [rmf-2] : < M p5 , (DS , f) , PS , DO > => < M p6 , (DS , f) , PS , dops(rmf) > .
-    rl [scd-1] : < M p4 p6 , (DS , chr,f) , (PS , { okData : true }) , DO > => < M o , (DS , cd) , (PS , { okData : true }) , dops(scd) > .
-    rl [srn-1] : < M p4 p3 , (DS , chr) , (PS , { okCH : false }) , DO > => < M o , (DS , chr,rn) , (PS , { okCH : false }) , dops(srn) > . 
+crl [cch-2] : < M p1 , (DS , c) , PS , DO > => < M p3 , (DS , chr,c) , changeValues(PS, okData) , dops(cch) >  if definedPreds(okData, (DS , chr,c)).
+crl [cch-3] : < M p1 , (DS , c) , PS , DO > => < M p3 , (DS , chr,c) , changeValues(PS, (okCH,okData)) , dops(cch) >  if definedPreds((okCH,okData), (DS , chr,c)).
+rl [cch-4] : < M p1 , (DS , c) , PS , DO > => < M p3 , (DS , chr,c) , PS , dops(cch) > .
+rl [ple-1] : < M p2 , (DS , c) , PS , DO > => < M p4 , (DS , le,c) , PS , dops(ple) > .
+crl [pmf-1] : < M p3 , (DS , chr,c) , (PS , { okCH : true }) , DO > => < M p5 , (DS , chr,f,c) , changeValues((PS , { okCH : true }), okData) , dops(pmf) >  if definedPreds(okData, (DS , chr,f,c)).
+rl [pmf-2] : < M p3 , (DS , chr,c) , (PS , { okCH : true }) , DO > => < M p5 , (DS , chr,f,c) , (PS , { okCH : true }) , dops(pmf) > .
+rl [ra-1] : < M i , (DS , c) , PS , DO > => < M p1 p2 , (DS , c) , PS , dops(ra) > .
+rl [rja-1] : < M p6 p4 , (DS , f,chr) , (PS , { okData : false }) , DO > => < M o , (DS , rn) , (PS , { okData : false }) , dops(rja) > .
+crl [rmf-1] : < M p5 , (DS , f) , PS , DO > => < M p6 , (DS , f) , changeValues(PS, okData) , dops(rmf) >  if definedPreds(okData, (DS , f)).
+rl [rmf-2] : < M p5 , (DS , f) , PS , DO > => < M p6 , (DS , f) , PS , dops(rmf) > .
+rl [scd-1] : < M p6 p4 , (DS , f,chr) , (PS , { okData : true }) , DO > => < M o , (DS , cd) , (PS , { okData : true }) , dops(scd) > .
+rl [srn-1] : < M p4 p3 , (DS , chr) , (PS , { okCH : false }) , DO > => < M o , (DS , rn,chr) , (PS , { okCH : false }) , dops(srn) > . 
 endm

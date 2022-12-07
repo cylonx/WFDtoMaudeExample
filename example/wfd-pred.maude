@@ -1,65 +1,71 @@
+--- short version for ICEIS2023
 mod wfd-preds is
-    protecting wfd .
-    including SATISFACTION .
-    including net-types .
+protecting wfd .
+including SATISFACTION .
+including net-types .
+subsort Config < State .
+ops final availableData : Set{Data} -> Prop .
+ops  predTrans  enabledTrans : Transitions -> Prop .
+op concurrentlyFireable : Transitions Transitions -> Prop .
+ops written read deleted : Data -> Prop .
+op consistent : -> Prop .
 
-    subsort Config < State .
-    
-    ops final availableData : Set{Data} -> Prop .
-    ops  predTrans  enabledTrans : Transitions -> Prop .
-    op concurrentlyFireable : Transitions Transitions -> Prop .
-    ops written read deleted : Data -> Prop .
+var M : Marking .
+var DS : Set{Data} .
+var DS1 : Set{Data} .
+var PS : Set{PredValue} . 
+var DO : Set{DataOp} .
+var C : Config .
+var P : Prop .
+var x : Data .
 
-    var M : Marking .
-    var DS : Set{Data} .
-    var DS1 : Set{Data} .
-    var PS : Set{PredValue} . 
-    var DO : Set{DataOp} .
-    var C : Config .
-    var P : Prop .
-    var x : Data .
+eq C |= consistent = true .
 
-    --- final configuration
-    eq < o , (DS1 , DS) , PS , DO > |= final(DS) = true .
+--- final configuration
+eq < o , (DS1 , DS) , PS , DO > |= final(DS) = true .
 
-    --- transition enabled in the marking of Config: eq Config |= enabledTrans(t) = true .
-    eq < M p1 , DS , PS , DO > |= enabledTrans(cch) = true .
-    eq < M p2 , DS , PS , DO > |= enabledTrans(ple) = true .
-    eq < M p3 , DS , PS , DO > |= enabledTrans(pmf) = true .
-    eq < M i , DS , PS , DO > |= enabledTrans(ra) = true .
-    eq < M p4 p6 , DS , PS , DO > |= enabledTrans(rja) = true .
-    eq < M p5 , DS , PS , DO > |= enabledTrans(rmf) = true .
-    eq < M p4 p6 , DS , PS , DO > |= enabledTrans(scd) = true .
-    eq < M p4 p3 , DS , PS , DO > |= enabledTrans(srn) = true .
+--- transition enabled in the marking of Config: eq Config |= enabledTrans(t) = true .
+eq < M p1 , DS , PS , DO > |= enabledTrans(cch) = true .
+eq < M p2 , DS , PS , DO > |= enabledTrans(ple) = true .
+eq < M p3 , DS , PS , DO > |= enabledTrans(pmf) = true .
+eq < M i , DS , PS , DO > |= enabledTrans(ra) = true .
+eq < M p6 p4 , DS , PS , DO > |= enabledTrans(rja) = true .
+eq < M p5 , DS , PS , DO > |= enabledTrans(rmf) = true .
+eq < M p6 p4 , DS , PS , DO > |= enabledTrans(scd) = true .
+eq < M p4 p3 , DS , PS , DO > |= enabledTrans(srn) = true .
 
-    --- predicate of transitions holds in Config: eq Config |= predTrans(t) = true 
-    eq C |= predTrans(cch) = true .
-    eq C |= predTrans(ple) = true .
-    eq < M , DS , (PS , { okCH : true }) , DO > |= predTrans(pmf) = true .
-    eq C |= predTrans(ra) = true .
-    eq < M , DS , (PS , { okData : false }) , DO > |= predTrans(rja) = true .
-    eq C |= predTrans(rmf) = true .
-    eq < M , DS , (PS , { okData : true }) , DO > |= predTrans(scd) = true .
-    eq < M , DS , (PS , { okCH : false }) , DO > |= predTrans(srn) = true .
+--- predicate of transitions holds in Config: eq Config |= predTrans(t) = true 
+eq C |= predTrans(cch) = true .
+eq C |= predTrans(ple) = true .
+eq < M , DS , (PS , { okCH : true }) , DO > |= predTrans(pmf) = true .
+eq C |= predTrans(ra) = true .
+eq < M , DS , (PS , { okData : false }) , DO > |= predTrans(rja) = true .
+eq C |= predTrans(rmf) = true .
+eq < M , DS , (PS , { okData : true }) , DO > |= predTrans(scd) = true .
+eq < M , DS , (PS , { okCH : false }) , DO > |= predTrans(srn) = true .
 
-    --- data defined/available in config
-    eq < M , (DS1 , DS) , PS , DO > |= availableData (DS) = true .
+--- data defined/available in config
+eq < M , (DS1 , DS) , PS , DO > |= availableData (DS) = true .
 
-    --- concurrentlyFireable transitions: Config |= concurrentlyFireable(t_i,t_j) = true .
-    eq < M p1 p4 p6 , (DS , chr , f , c), ( PS , { okData : false } ) , DO  > |= concurrentlyFireable(cch,rja) = true .
-    eq < M p1 p3 , (DS , chr , c), ( PS , { okCH : true } ) , DO  > |= concurrentlyFireable(cch,pmf) = true .
-    eq < M p1 p4 p6 , (DS , chr , f , c), ( PS , { okData : true } ) , DO  > |= concurrentlyFireable(cch,scd) = true .
-    eq < M p1 p4 p3 , (DS , chr , c), ( PS , { okCH : false } ) , DO  > |= concurrentlyFireable(cch,srn) = true .
-    eq < M p5 p4 p6 , (DS , chr , f), ( PS , { okData : true } ) , DO  > |= concurrentlyFireable(rmf,scd) = true .
-    eq < M p3 p4 p6 , (DS , chr , f , c), ( PS , { okData : false } , { okCH : true } ) , DO  > |= concurrentlyFireable(pmf,rja) = true .
-    eq < M p3 p5 , (DS , chr , f , c), ( PS , { okCH : true } ) , DO  > |= concurrentlyFireable(pmf,rmf) = true .
-    eq < M p4 p6 p5 , (DS , chr , f), ( PS , { okData : false } ) , DO  > |= concurrentlyFireable(rja,rmf) = true .
-    eq < M p4 p6 p4 p3 , (DS , chr , f), ( PS , { okData : false } , { okCH : false } ) , DO  > |= concurrentlyFireable(rja,srn) = true .
-    eq < M p3 p4 p6 , (DS , chr , f , c), ( PS , { okCH : true } , { okData : true } ) , DO  > |= concurrentlyFireable(pmf,scd) = true .
+--- concurrentlyFireable transitions: Config |= concurrentlyFireable(t_i,t_j) = true .
+eq < M p1 p6 p4 , (DS , chr , f , c), ( PS , { okData : true } ) , DO  > |= concurrentlyFireable(cch,scd) = true .
+eq < M p6 p4 p4 p3 , (DS , chr , f), ( PS , { okData : false } , { okCH : false } ) , DO  > |= concurrentlyFireable(rja,srn) = true .
+eq < M p4 p3 p6 p4 , (DS , f , chr), ( PS , { okData : false } , { okCH : false } ) , DO  > |= concurrentlyFireable(srn,rja) = true .
+eq < M p6 p4 p3 , (DS , chr , f , c), ( PS , { okCH : true } , { okData : false } ) , DO  > |= concurrentlyFireable(rja,pmf) = true .
+eq < M p6 p4 p6 p4 , (DS , chr , f), ( PS , { okData : true } , { okData : false } ) , DO  > |= concurrentlyFireable(scd,rja) = true .
+eq < M p1 p6 p4 , (DS , chr , f , c), ( PS , { okData : false } ) , DO  > |= concurrentlyFireable(cch,rja) = true .
+eq < M p6 p4 p4 p3 , (DS , chr , f), ( PS , { okData : true } , { okCH : false } ) , DO  > |= concurrentlyFireable(scd,srn) = true .
+eq < M p5 p3 , (DS , chr , f , c), ( PS , { okCH : true } ) , DO  > |= concurrentlyFireable(rmf,pmf) = true .
+eq < M p1 p3 , (DS , chr , c), ( PS , { okCH : true } ) , DO  > |= concurrentlyFireable(cch,pmf) = true .
+eq < M p1 p4 p3 , (DS , chr , c), ( PS , { okCH : false } ) , DO  > |= concurrentlyFireable(cch,srn) = true .
+eq < M p6 p4 p6 p4 , (DS , chr , f), ( PS , { okData : true } , { okData : false } ) , DO  > |= concurrentlyFireable(rja,scd) = true .
+eq < M p6 p4 p3 , (DS , chr , f , c), ( PS , { okData : true } , { okCH : true } ) , DO  > |= concurrentlyFireable(scd,pmf) = true .
+eq < M p5 p6 p4 , (DS , chr , f), ( PS , { okData : true } ) , DO  > |= concurrentlyFireable(rmf,scd) = true .
+eq < M p6 p4 p5 , (DS , chr , f), ( PS , { okData : false } ) , DO  > |= concurrentlyFireable(rja,rmf) = true .
 
-    eq < M , DS , PS , (DO , w(x)) > |= written(x) = true .
-    eq < M , DS , PS , (DO , r(x)) > |= read(x) = true .
-    eq < M , DS , PS , (DO , dl(x)) > |= deleted(x) = true .
+eq < M , DS , PS , (DO , w(x)) > |= written(x) = true .
+eq < M , DS , PS , (DO , r(x)) > |= read(x) = true .
+eq < M , DS , PS , (DO , dl(x)) > |= deleted(x) = true .
 
-    eq C |= P = false [owise] .
+eq C |= P = false [owise] .
 endm 

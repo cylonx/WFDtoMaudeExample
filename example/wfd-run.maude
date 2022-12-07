@@ -51,4 +51,16 @@ red in wfd-check : modelCheck(initConfig, notmissing(c)) .
 red in wfd-check : modelCheck(initConfig, notmissing(cd)) . 
 red in wfd-check : modelCheck(initConfig, notmissing(rn)) . 
 
+set show stats off .
+red in STRING : "Check if data elements are consistent" .
+set show stats on .
+
+red in wfd-check : modelCheck(initConfig, consistentData(le)) . 
+red in wfd-check : modelCheck(initConfig, consistentData(cd)) . 
+red in wfd-check : modelCheck(initConfig, consistentData(rn)) . 
+red in wfd-check : modelCheck(initConfig, consistentData(chr)) . 
+red in wfd-check : modelCheck(initConfig, consistentData(c)) . 
+red in wfd-check : modelCheck(initConfig, consistentData(f)) . 
+
+
 q

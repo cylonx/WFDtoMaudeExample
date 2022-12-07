@@ -1,50 +1,56 @@
 fmod wfd-net is 
-    including net-types .
+including net-types .
 
-    ops i o p1 p2 p3 p4 p5 p6 : -> Places  . 
-    ops cch ple pmf ra rja rmf scd srn : -> Transitions .
-    ops chr f le c cd rn : -> Data .
-    ops okCH okData : -> Preds .
+ops i o p1 p2 p3 p4 p5 p6 : -> Places  . 
+ops cch ple pmf ra rja rmf scd srn : -> Transitions .
+ops cd rn le chr f c : -> Data .
+ops okCH okData : -> Preds .
 
-    --- operations for transitions
-    eq read(cch) = c .
-    eq write(cch) = chr .
-    eq delete(cch) = empty .
+--- inputPlaces ... inputPlaces(t1) = i . not used ?
+--- outputPlaces outputPlaces(t1)  = i, p1 
 
-    eq read(ple) = c .
-    eq write(ple) = le .
-    eq delete(ple) = empty .
 
-    eq read(pmf) = chr,c .
-    eq write(pmf) = f .
-    eq delete(pmf) = empty .
 
-    eq read(ra) = c .
-    eq write(ra) = empty .
-    eq delete(ra) = empty .
+--- operations for Transitions eq read(t) = ... eq write(t3) = empty . eq delete(t4) = empty .
+eq read(cch) = c .
+eq write(cch) = chr .
+eq delete(cch) = empty .
 
-    eq read(rja) = chr,f .
-    eq write(rja) = rn .
-    eq delete(rja) = f,chr .
+eq read(ple) = c .
+eq write(ple) = le .
+eq delete(ple) = empty .
 
-    eq read(rmf) = f .
-    eq write(rmf) = f .
-    eq delete(rmf) = empty .
+eq read(pmf) = chr,c .
+eq write(pmf) = f .
+eq delete(pmf) = empty .
 
-    eq read(scd) = chr,f .
-    eq write(scd) = cd .
-    eq delete(scd) = f,chr .
+eq read(ra) = c .
+eq write(ra) = empty .
+eq delete(ra) = empty .
 
-    eq read(srn) = chr .
-    eq write(srn) = rn .
-    eq delete(srn) = empty .
+eq read(rja) = f,chr .
+eq write(rja) = rn .
+eq delete(rja) = f,chr .
 
-    
-    --- predicates data
-    eq vars(okCH) = chr .
-    eq vars(okData) = chr,f .
+eq read(rmf) = f .
+eq write(rmf) = f .
+eq delete(rmf) = empty .
 
-    --- initial configuration
-    eq initConfig = < i  , (c) , ({ okCH : false },{ okData : false })  , empty > .
+eq read(scd) = f,chr .
+eq write(scd) = cd .
+eq delete(scd) = f,chr .
+
+eq read(srn) = chr .
+eq write(srn) = rn .
+eq delete(srn) = empty .
+
+ 
+--- data of Predicates
+--- eq vars(P) = d .
+--- eq vars(Q) = d, g . 
+eq vars(okCH) = chr .
+eq vars(okData) = chr,f .
+
+eq initConfig = < i  , (c) , ({ okCH : false },{ okData : false })  , empty > .
 
 endfm

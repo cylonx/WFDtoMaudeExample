@@ -1,51 +1,58 @@
+--- this is just a shortened file for the ICEIS2023 article
 mod wfd-check is 
-    including wfd-preds . 
-    including MODEL-CHECKER . 
-    including LTL-SIMPLIFIER . 
+including wfd-preds . 
+including MODEL-CHECKER . 
+including LTL-SIMPLIFIER . 
 
-    op enabledWithData : Transitions Data -> Prop .
-    ops notmissing notredundant notlost  access delwrite : Data -> Prop .
+op enabledWithData : Transitions Data -> Prop .
+ops notmissing notredundant notlost  access delwrite consistentData : Data -> Prop .
 
-    op fireable : Transitions -> Prop .
-    ops consistentData  end : -> Prop .
+op fireable : Transitions -> Prop .
+ops end : -> Prop .
 
-    var t : Transitions .
-    var x : Data .
-    var s : Set{Data} .
+var t : Transitions .
+var x : Data .
+var s : Set{Data} .
 
-    eq end = final(empty) .
+eq end = final(empty) .
 
-    eq enabledWithData(t,s) = enabledTrans(t) /\ predTrans(t) /\ availableData (s) .
+eq enabledWithData(t,s) = enabledTrans(t) /\ predTrans(t) /\ availableData (s) .
 
-    --- access
-    eq access (chr) =  enabledTrans(pmf) \/ enabledTrans(rja) \/ enabledTrans(scd) \/ enabledTrans(srn)  .
-    eq access (f) =  enabledTrans(rja) \/ enabledTrans(rmf) \/ enabledTrans(scd)  .
-    eq access (c) =  enabledTrans(cch) \/ enabledTrans(ple) \/ enabledTrans(pmf) \/ enabledTrans(ra)  .
+--- access
 
 
-    --- fireable 
-    eq fireable (cch) = enabledWithData(cch ,c) .
-    eq fireable (ple) = enabledWithData(ple ,c) .
-    eq fireable (pmf) = enabledWithData(pmf ,(chr,c)) .
-    eq fireable (ra) = enabledWithData(ra ,c) .
-    eq fireable (rja) = enabledWithData(rja ,(chr,f)) .
-    eq fireable (rmf) = enabledWithData(rmf ,f) .
-    eq fireable (scd) = enabledWithData(scd ,(chr,f)) .
-    eq fireable (srn) = enabledWithData(srn ,chr) .
 
-    eq delwrite(x) = written(x) \/ deleted(x) .
+eq access (chr) =  enabledTrans(pmf) \/ enabledTrans(rja) \/ enabledTrans(scd) \/ enabledTrans(srn)  .
+eq access (f) =  enabledTrans(rja) \/ enabledTrans(rmf) \/ enabledTrans(scd)  .
+eq access (c) =  enabledTrans(cch) \/ enabledTrans(ple) \/ enabledTrans(pmf) \/ enabledTrans(ra)  .
 
+--- fireable 
+eq fireable (cch) = enabledWithData(cch ,c) .
+eq fireable (ple) = enabledWithData(ple ,c) .
+eq fireable (pmf) = enabledWithData(pmf ,(chr,c)) .
+eq fireable (ra) = enabledWithData(ra ,c) .
+eq fireable (rja) = enabledWithData(rja ,(f,chr)) .
+eq fireable (rmf) = enabledWithData(rmf ,f) .
+eq fireable (scd) = enabledWithData(scd ,(f,chr)) .
+eq fireable (srn) = enabledWithData(srn ,chr) .
 
-    --- redundant : EF (wrriten (d) /\ O (~ read(x) U ( end /\ ~ read (x))) .
-    eq notredundant(x) = [] ~ ( written (x)  /\ O (~ read(x) U ( end /\ ~ read (x)) )) .
+eq delwrite(x) = written(x) \/ deleted(x) .
 
-    --- missing data: EF ( ~ availableData(x) /\ access(x) )
-    eq notmissing(x) = [] ~( ~ availableData(x) /\ access(x) ) .
+--- deadconf 
+--- eq deadconf =  ~ fireable(cch) /\ ~ fireable(ple) /\ ~ fireable(pmf) /\ ~ fireable(ra) /\ ~ fireable(rja) /\ ~ fireable(rmf) /\ ~ fireable(scd) /\ ~ fireable(srn)  /\ ~ end .
 
-    --- lost data : EF ( written(x) /\ ~end /\ O (~ read(x) U (delwrite(x) /\ ~ read(x))) ) 
-    eq notlost(x) = [] ~ ( (written(x) /\ ~ end) /\ O (~ read(x) U (delwrite(x) /\ ~ read(x))) ) .
+--- redundant : EF (wrriten (d) /\ O (~ used(x) U ( end /\ ~ used (x))) .
+eq notredundant(x) = [] ~ ( written (x)  /\ O (~ read(x) U ( end /\ ~ read (x)) )) .
 
-    eq consistentData = [] ~ ( concurrentlyFireable(cch,rja) \/ concurrentlyFireable(cch,pmf) \/ concurrentlyFireable(cch,scd) \/ 
-                               concurrentlyFireable(cch,srn) \/ concurrentlyFireable(rmf,scd) \/ concurrentlyFireable(pmf,rja) \/ 
-                               concurrentlyFireable(pmf,rmf) \/ concurrentlyFireable(rja,rmf) \/ concurrentlyFireable(rja,srn) \/ concurrentlyFireable(pmf,scd) ) .
+--- missing data: EF ( ~ availableData(x) /\ access(x) )
+eq notmissing(x) = [] ~( ~ availableData(x) /\ access(x) ) .
+
+--- lost data : EF ( written(x) /\ ~end /\ O (~ read(x) U (delwrite(x) /\ ~ read(x))) ) 
+eq notlost(x) = [] ~ ( (written(x) /\ ~ end) /\ O (~ read(x) U (delwrite(x) /\ ~ read(x))) ) .
+
+--- inconsistent data 
+eq consistentData(rn) = [] ~ ( concurrentlyFireable(srn,rja) ) .
+eq consistentData(chr) = [] ~ ( concurrentlyFireable(cch,scd) \/ concurrentlyFireable(rja,srn) \/ concurrentlyFireable(rja,pmf) \/ concurrentlyFireable(scd,rja) \/ concurrentlyFireable(cch,rja) \/ concurrentlyFireable(scd,srn) \/ concurrentlyFireable(cch,pmf) \/ concurrentlyFireable(cch,srn) \/ concurrentlyFireable(scd,pmf) ) .
+eq consistentData(f) = [] ~ ( concurrentlyFireable(rja,pmf) \/ concurrentlyFireable(rmf,pmf) \/ concurrentlyFireable(rja,scd) \/ concurrentlyFireable(rja,rmf) \/ concurrentlyFireable(scd,pmf) \/ concurrentlyFireable(rmf,scd) ) .
+eq consistentData(x) = consistent [owise] .
 endm
