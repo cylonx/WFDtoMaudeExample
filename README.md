@@ -1,9 +1,8 @@
 # WFDtoMaudeExample
-This repository contains information and code related to an example related to the specification of Workflow Nets Data in Maude.
+This repository contains information and code related to an example that showcases the specification of Workflow Nets with Data in Maude.
 
-The example 
 The structure of the repo is as follows:
-* /Img : contains the workflow net with data (WFD-net) that models
+* /img : contains the workflow net with data (WFD-net) that models
 the processing of a mortgage application in a bank.
 * /example : contains the example files:
   * wfd-nettypes.maude : the definition of general data types and operations used for a general WFD-net
@@ -14,3 +13,5 @@ the processing of a mortgage application in a bank.
   * wfd-run.maude : contains verification commands for all the data-flow errors for the example
 
 In order to run the verification producedure for the example, cd the example directory and load  wfd-run.maude 
+
+
