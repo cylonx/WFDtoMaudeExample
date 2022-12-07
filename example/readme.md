@@ -1,8 +1,7 @@
+![Alt text](/Img/wfd.png?raw=true "Title")
 
 The example depicts a WFD-net modelling the processing of a mortgage application in
 a bank. 
-
-![Alt text](Img/wfd.png?raw=true "Title")
 
 The data elements involved are: D = {c, chr, f, le, rn, cd}. 
 
@@ -37,3 +36,4 @@ Data elements *f* and *chr* are deleted, as they
 are no longer needed. If the predicate is false, the action
 *rja* (reject application) is performed: a rejection
 notice (*rn*) is written and *f* and *chr* are deleted.
+
