@@ -1,0 +1,176 @@
+Maude> load WFDN/wfd-run.maude .
+==========================================
+reduce in STRING : "Check if transitions are dead" .
+result String: "Check if transitions are dead"
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(cch)) .
+rewrites: 128 in 10ms cpu (11ms real) (12800 rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(
+    chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(ple)) .
+rewrites: 128 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(
+    chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(pmf)) .
+rewrites: 127 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(
+    chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(ra)) .
+rewrites: 125 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(
+    chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(rja)) .
+rewrites: 131 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(
+    chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(rmf)) .
+rewrites: 129 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(
+    chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(scd)) .
+rewrites: 153 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-2} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : true},w(f), r(f) >,'scd-1}, {< o,cd, le, c,{okCH : true}, {okData : true},w(cd), r(chr), r(f), dl(chr),
+    dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, []~ fireable(srn)) .
+rewrites: 485 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-4} {< p2 p3,chr, c,{okCH :
+    false}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : false}, {okData : false},w(le), r(c) >,'srn-1}, {< o,rn, le, chr, c,{okCH : false}, {okData : false},w(
+    rn), r(chr) >,deadlock})
+==========================================
+reduce in STRING : "Check if data elements are not redundant" .
+result String: "Check if data elements are not redundant"
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notredundant(chr)) .
+rewrites: 625 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notredundant(f)) .
+rewrites: 630 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notredundant(le)) .
+rewrites: 166 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(
+    chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notredundant(c)) .
+rewrites: 616 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notredundant(cd)) .
+rewrites: 185 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-2} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : true},w(f), r(f) >,'scd-1} {< o,cd, le, c,{okCH : true}, {okData : true},w(cd), r(chr), r(f), dl(chr),
+    dl(f) >,deadlock}, {< o,cd, le, c,{okCH : true}, {okData : true},w(cd), r(chr), r(f), dl(chr), dl(f) >,deadlock})
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notredundant(rn)) .
+rewrites: 165 in 0ms cpu (0ms real) (~ rewrites/second)
+result ModelCheckResult: counterexample({< i,c,{okCH : false}, {okData : false},empty >,'ra-1} {< p1 p2,c,{okCH : false}, {okData : false},r(c) >,'cch-1} {< p2 p3,chr, c,{okCH :
+    true}, {okData : false},w(chr), r(c) >,'ple-1} {< p3 p4,le, chr, c,{okCH : true}, {okData : false},w(le), r(c) >,'pmf-1} {< p4 p5,le, chr, f, c,{okCH : true}, {okData : true},w(
+    f), r(chr), r(c) >,'rmf-1} {< p4 p6,le, chr, f, c,{okCH : true}, {okData : false},w(f), r(f) >,'rja-1} {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(chr),
+    dl(f) >,deadlock}, {< o,rn, le, c,{okCH : true}, {okData : false},w(rn), r(chr), r(f), dl(chr), dl(f) >,deadlock})
+==========================================
+reduce in STRING : "Check if data elements are not lost" .
+result String: "Check if data elements are not lost"
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notlost(chr)) .
+rewrites: 687 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notlost(f)) .
+rewrites: 696 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notlost(le)) .
+rewrites: 699 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notlost(c)) .
+rewrites: 674 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notlost(cd)) .
+rewrites: 675 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notlost(rn)) .
+rewrites: 676 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in STRING : "Check if data elements are not missing" .
+result String: "Check if data elements are not missing"
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notmissing(chr)) .
+rewrites: 688 in 0ms cpu (1ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notmissing(f)) .
+rewrites: 646 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notmissing(le)) .
+rewrites: 576 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notmissing(c)) .
+rewrites: 668 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notmissing(cd)) .
+rewrites: 591 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, notmissing(rn)) .
+rewrites: 590 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in STRING : "Check if data elements are consistent" .
+result String: "Check if data elements are consistent"
+==========================================
+reduce in wfd-check : modelCheck(initConfig, consistentData(le)) .
+rewrites: 4 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, consistentData(cd)) .
+rewrites: 4 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, consistentData(rn)) .
+rewrites: 562 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, consistentData(chr)) .
+rewrites: 2650 in 10ms cpu (4ms real) (265000 rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, consistentData(c)) .
+rewrites: 4 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
+==========================================
+reduce in wfd-check : modelCheck(initConfig, consistentData(f)) .
+rewrites: 904 in 0ms cpu (0ms real) (~ rewrites/second)
+result Bool: true
