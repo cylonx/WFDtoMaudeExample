@@ -20,7 +20,7 @@ fmod PREDVALUE is
 endfm 
 
 --- for each of the modules NAME in { DATA, PREDS, DATAOP, PREDVALUE} we define a view Name  from TRIV to NAME...this will allow us to instantiate 
-the parametrized predifined modul SET with this views an to work with sets of Preds, Data, DataOp, PredValue
+--- the parametrized predifined modul SET with this views an to work with sets of Preds, Data, DataOp, PredValue
 
 --- view used for sets of Data
 view Data from TRIV to DATA is

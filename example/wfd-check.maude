@@ -27,14 +27,7 @@ eq access (f) =  enabledTrans(rja) \/ enabledTrans(rmf) \/ enabledTrans(scd)  .
 eq access (c) =  enabledTrans(cch) \/ enabledTrans(ple) \/ enabledTrans(pmf) \/ enabledTrans(ra)  .
 
 --- fireable 
-eq fireable (cch) = enabledWithData(cch ,c) .
-eq fireable (ple) = enabledWithData(ple ,c) .
-eq fireable (pmf) = enabledWithData(pmf ,(chr,c)) .
-eq fireable (ra) = enabledWithData(ra ,c) .
-eq fireable (rja) = enabledWithData(rja ,(f,chr)) .
-eq fireable (rmf) = enabledWithData(rmf ,f) .
-eq fireable (scd) = enabledWithData(scd ,(f,chr)) .
-eq fireable (srn) = enabledWithData(srn ,chr) .
+eq fireable (t) = enabledWithData(t , read(t)) .
 
 eq delwrite(x) = written(x) \/ deleted(x) .
 

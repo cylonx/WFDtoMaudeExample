@@ -5,7 +5,7 @@ load model-checker .
 load wfd-pred.maude .
 load wfd-check.maude .
 
-set show commands off .
+set show command on .
 
 set show stats off .
 red in STRING : "Check if transitions are dead" .
