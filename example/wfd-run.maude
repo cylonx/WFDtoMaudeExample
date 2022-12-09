@@ -19,6 +19,7 @@ red in wfd-check : modelCheck(initConfig, []~ fireable(rja)) .
 red in wfd-check : modelCheck(initConfig, []~ fireable(rmf)) . 
 red in wfd-check : modelCheck(initConfig, []~ fireable(scd)) . 
 red in wfd-check : modelCheck(initConfig, []~ fireable(srn)) . 
+
 set show stats off .
 red in STRING : "Check if data elements are not redundant" .
 set show stats on .
@@ -32,7 +33,6 @@ red in wfd-check : modelCheck(initConfig, notredundant(rn)) .
 set show stats off .
 red in STRING : "Check if data elements are not lost" .
 set show stats on .
-
 red in wfd-check : modelCheck(initConfig, notlost(chr)) . 
 red in wfd-check : modelCheck(initConfig, notlost(f)) . 
 red in wfd-check : modelCheck(initConfig, notlost(le)) . 
@@ -41,7 +41,7 @@ red in wfd-check : modelCheck(initConfig, notlost(cd)) .
 red in wfd-check : modelCheck(initConfig, notlost(rn)) . 
 
 set show stats off .
-red in STRING : "Check if data elements are not lost" .
+red in STRING : "Check if data elements are not missing" .
 set show stats on .
 
 red in wfd-check : modelCheck(initConfig, notmissing(chr)) . 

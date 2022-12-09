@@ -6,12 +6,7 @@ ops cch ple pmf ra rja rmf scd srn : -> Transitions .
 ops cd rn le chr f c : -> Data .
 ops okCH okData : -> Preds .
 
---- inputPlaces ... inputPlaces(t1) = i . not used ?
---- outputPlaces outputPlaces(t1)  = i, p1 
-
-
-
---- operations for Transitions eq read(t) = ... eq write(t3) = empty . eq delete(t4) = empty .
+--- operations for Transitions 
 eq read(cch) = c .
 eq write(cch) = chr .
 eq delete(cch) = empty .
@@ -46,8 +41,6 @@ eq delete(srn) = empty .
 
  
 --- data of Predicates
---- eq vars(P) = d .
---- eq vars(Q) = d, g . 
 eq vars(okCH) = chr .
 eq vars(okData) = chr,f .
 
