@@ -9,6 +9,8 @@ The structure of the repo is as follows:
   * [wfd-preds.maude](/example/wfd-preds.maude) : contains the state predicates used for verification 
   * [wdf-check.maude](/example/wdf-check.maude) : contains the formulas describibg data-flow erorrs 
   * [wfd-run.maude](/example/wdf-run.maude) : contains verification commands for all the data-flow errors for the example
+  * [lisiting.txt](/listing.txt) : contains a listing of the results obtained by running the commands in wfd-run
+
 
 In order to run the verification procedure for the example, cd the example directory and load  wfd-run.maude 
 
