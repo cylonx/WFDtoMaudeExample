@@ -31,9 +31,6 @@ eq fireable (t) = enabledWithData(t , read(t)) .
 
 eq delwrite(x) = written(x) \/ deleted(x) .
 
---- deadconf 
---- eq deadconf =  ~ fireable(cch) /\ ~ fireable(ple) /\ ~ fireable(pmf) /\ ~ fireable(ra) /\ ~ fireable(rja) /\ ~ fireable(rmf) /\ ~ fireable(scd) /\ ~ fireable(srn)  /\ ~ end .
-
 --- redundant : EF (wrriten (d) /\ O (~ used(x) U ( end /\ ~ used (x))) .
 eq notredundant(x) = [] ~ ( written (x)  /\ O (~ read(x) U ( end /\ ~ read (x)) )) .
 
